@@ -7,7 +7,7 @@ import unicodedata
 
 from xml.dom.minidom import parse
 
-from .exceptions import InvalidCardError
+from .exceptions import InvalidCardError, InvalidFormatCardError
 
 
 class CardValidator(object):
@@ -59,7 +59,7 @@ class CardValidator(object):
         elements = dom.getElementsByTagName('chyba');
         if elements:
             error = elements.pop()
-            raise ValueError('Error returned from the remote server: %s', cls._text(error.childNodes))
+            raise InvalidFormatCardError('Error returned from the remote server: %s' % cls._text(error.childNodes))
 
 
 if __name__ == '__main__':
